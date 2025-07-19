@@ -1,3 +1,1 @@
-latex and platformio support
-
-future python c and c++
+latex,python,platformio support
