@@ -1,6 +1,11 @@
 --Para acortar
 local opts = { noremap = true, silent = true }
 
+-- Curucusi
+vim.keymap.set('i', 'jj', '<Esc>', opts)
+vim.keymap.set("n", "<leader>j", ":wq<CR>", opts)
+vim.keymap.set("n", "<C-j>", "o<Esc>", opts)
+
 -- Tabs
 vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts)   -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
