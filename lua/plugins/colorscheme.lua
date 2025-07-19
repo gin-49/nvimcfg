@@ -1,7 +1,19 @@
 return {
-	"morhetz/gruvbox",
+	"ellisonleao/gruvbox.nvim",
 	priority = 1000,
 	config = function()
-		vim.cmd([[colorscheme gruvbox]])
+		require("gruvbox").setup({
+			terminal_colors = true,
+			italic = {
+				strings = false,
+				emphasis = true,
+				comments = true,
+				operators = false,
+				folds = true,
+			},
+			-- Add this line to enable Tree-sitter colors
+			overrides = {},
+		})
+		vim.cmd("colorscheme gruvbox")
 	end,
 }

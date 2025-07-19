@@ -28,7 +28,7 @@ return {
 			dashboard.button("p", "   Proyectos", ":cd ~/codes<CR>"),
 			dashboard.button("r", "   Recent", ":Telescope oldfiles<CR>"),
 			dashboard.button("x", "󰦛   Restore Session", ":lua require('persistence').load({ last = true })<CR>"),
-			dashboard.button("n", "   Config", ":cd ~/.config/nvim<CR>"),
+			dashboard.button("c", "   Config", ":cd ~/.config/nvim<CR>"),
 			dashboard.button("q", "󰩈   Quit NVIM", ":qa<CR>"),
 		}
 		alpha.setup(dashboard.opts)

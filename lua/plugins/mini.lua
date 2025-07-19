@@ -12,7 +12,7 @@ return {
 
 			require("mini.trailspace").setup()
 
-			-- Indentation
+            -- Indentation
 			require("mini.basics").setup({
 				options = {
 					basic = false,

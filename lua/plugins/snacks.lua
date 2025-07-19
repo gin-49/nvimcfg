@@ -8,6 +8,7 @@ return {
 	end,
 	opts = {
 		indent = { enabled = true },
+        image = { enabled = true},
 		notifier = { enabled = true },
 		scope = { enabled = true },
 	},
