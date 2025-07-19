@@ -5,7 +5,7 @@ return {
 	init = function()
 		-- VimTeX configuration goes here, e.g.
 		vim.g.vimtex_view_method = "zathura"
-		vim.g.vimtex_compiler_method = "mklatex"
+		vim.g.vimtex_compiler_method = "latexmk"
 	end,
 	config = function()
 		vim.keymap.set("n", "<localleader>cc", ":VimtexCompile<CR>")
