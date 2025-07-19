@@ -24,7 +24,7 @@ return {
 
 		-- Set menu
 		dashboard.section.buttons.val = {
-			dashboard.button("l", "   Latex", ":cd ~/Documents/LATEX<CR>" ),
+			dashboard.button("l", "   Latex", ":cd ~/Documents/LATEX<CR>"),
 			dashboard.button("p", "   Proyectos", ":cd ~/codes<CR>"),
 			dashboard.button("r", "   Recent", ":Telescope oldfiles<CR>"),
 			dashboard.button("x", "󰦛   Restore Session", ":lua require('persistence').load({ last = true })<CR>"),

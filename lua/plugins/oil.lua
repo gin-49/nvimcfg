@@ -3,19 +3,7 @@ return {
 	---@module 'oil'
 	---@type oil.SetupOpts
 	opts = {
-		keymaps = {
-			["<BS>"] = { "actions.parent", mode = "n" },
-			["<C-s>"] = false,
-			["<leader>cd"] = {
-				callback = function()
-					local oil = require("oil")
-					local dir = oil.get_current_dir()
-					vim.cmd.cd(dir)
-					vim.notify("CWD set to " .. dir, vim.log.levels.INFO)
-				end,
-				desc = "Set cwd to current Oil directory",
-			},
-		},
+		keymaps = {},
 		delete_to_trash = true,
 	},
 	dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
