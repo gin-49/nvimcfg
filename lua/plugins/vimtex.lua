@@ -7,8 +7,4 @@ return {
 		vim.g.vimtex_view_method = "zathura"
 		vim.g.vimtex_compiler_method = "mklatex"
 	end,
-	config = function()
-		vim.keymap.set("n", "<localleader>cc", ":VimtexCompile<CR>")
-		vim.keymap.set("n", "<localleader>cv", ":VimtexView<CR>")
-	end,
 }

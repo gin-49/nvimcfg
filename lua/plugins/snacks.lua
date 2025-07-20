@@ -11,5 +11,6 @@ return {
         image = { enabled = true},
 		notifier = { enabled = true },
 		scope = { enabled = true },
+        terminal = { enabled = true},
 	},
 }
