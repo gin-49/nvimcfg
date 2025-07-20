@@ -14,6 +14,10 @@ vim.keymap.set("n", "<C-f>", "<End>", opts)
 vim.keymap.set("v", "<C-h>", "<Home>", opts)
 vim.keymap.set("v", "<C-f>", "<End>h", opts)
 
+-- Bufferline
+vim.keymap.set("n", "<S-l>", ":BufferLineCycleNext<CR>", opts)
+vim.keymap.set("n", "<S-h>", ":BufferLineCyclePrev<CR>", opts)
+
 -- Enter normal mode from terminal
 vim.keymap.set("t", "<C-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "t", false)
@@ -45,17 +49,13 @@ require("snacks").toggle.diagnostics():map("<leader>ud")
 require("snacks").toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
 require("snacks").toggle.indent():map("<leader>ug")
 
--- -----------------------------------------------------------------------------
 -- flash.nvim
--- -----------------------------------------------------------------------------
 vim.keymap.set({"n", "x", "o"}, "s", function() require("flash").jump() end, { desc = "Flash" })
 vim.keymap.set({"n", "x", "o"}, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
 vim.keymap.set("o", "r", function() require("flash").remote() end, { desc = "Remote Flash" })
 vim.keymap.set({"o", "x"}, "R", function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
 vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = "Toggle Flash Search" })
 
--- -----------------------------------------------------------------------------
 -- vimtex
--- -----------------------------------------------------------------------------
 vim.keymap.set("n", "<localleader>cc", ":VimtexCompile<CR>", { desc = "Vimtex Compile" })
 vim.keymap.set("n", "<localleader>cv", ":VimtexView<CR>", { desc = "Vimtex View" })
