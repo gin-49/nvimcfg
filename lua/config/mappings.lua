@@ -12,8 +12,23 @@ vim.keymap.set("v", "<C-h>", "<Home>", opts)
 vim.keymap.set("v", "<C-f>", "<End>h", opts)
 
 
+-- Open file explorer
 vim.keymap.set("n", "<leader>e", function() Snacks.explorer() end, { desc = "Open Snacks Explorer" })
-vim.keymap.set("n", "<leader>tt", function() Snacks.terminal() end, { desc = "Toggle Snacks Terminal" })
+
+local snacks = require("snacks")
+
+-- Toggle the terminal using <leader>tt
+vim.keymap.set("n", "<leader>tt", function()
+  snacks.terminal.toggle()
+end, { desc = "Toggle terminal" })
+
+-- Open a new terminal in a new buffer with `bash`
+vim.keymap.set("n", "<leader>tb", function()
+  snacks.terminal.open("bash")
+end, { desc = "Open bash terminal" })
+
+
+-- Enter normal mode from terminal
 vim.keymap.set("t", "<C-g>", function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "t", false)
 end, { desc = "Exit terminal mode" })
@@ -34,24 +49,26 @@ vim.keymap.set("n", "<leader>x", "<cmd>bdelete!<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd>enew<CR>", opts)
 
 -- Change buffer with leader + number
-for i = 1, 9 do
-	vim.keymap.set("n", "<leader>" .. i, function()
-		local buflist = vim.fn.getbufinfo({ buflisted = 1 })
-		if buflist[i] then
-			vim.cmd("buffer " .. buflist[i].bufnr)
-		else
-			vim.notify("No buffer in slot " .. i, vim.log.levels.WARN)
-		end
-	end, { desc = "Go to buffer " .. i })
-end
+-- for i = 1, 9 do
+-- 	vim.keymap.set("n", "<leader>" .. i, function()
+-- 		local buflist = vim.fn.getbufinfo({ buflisted = 1 })
+-- 		if buflist[i] then
+-- 			vim.cmd("buffer " .. buflist[i].bufnr)
+-- 		else
+-- 			vim.notify("No buffer in slot " .. i, vim.log.levels.WARN)
+-- 		end
+-- 	end, { desc = "Go to buffer " .. i })
+-- end
+--
+
 
 --Config Files command mode
-vim.api.nvim_create_user_command("ConfigFiles", function()
-	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
-end, {})
+-- vim.api.nvim_create_user_command("ConfigFiles", function()
+-- 	require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+-- end, {})
 
 --Save with ctrl+s
 vim.keymap.set("n", "<C-s>", ":update<CR>", { noremap = true, silent = true })
-vim.keymap.set("v", "<C-s>", "<C-C>:update<CR>", { noremap = true, silent = true })
-vim.keymap.set("i", "<C-s>", "<C-O>:update<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("v", "<C-s>", "<C-C>:update<CR>", { noremap = true, silent = true })
+-- vim.keymap.set("i", "<C-s>", "<C-O>:update<CR>", { noremap = true, silent = true })
 
