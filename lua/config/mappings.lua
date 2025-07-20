@@ -1,7 +1,9 @@
---Para acortar
+-- =============================================================================
+--  Key Mappings
+-- =============================================================================
 local opts = { noremap = true, silent = true }
 
--- Navigation keymaps
+-- Navigation and Editor keymaps
 vim.keymap.set("i", "jj", "<Esc>", opts)
 vim.keymap.set("n", "<leader>j", ":wq<CR>", opts)
 vim.keymap.set("n", "<leader>w", ":w!<CR>", opts)
@@ -14,49 +16,46 @@ vim.keymap.set("v", "<C-f>", "<End>h", opts)
 
 -- Enter normal mode from terminal
 vim.keymap.set("t", "<C-g>", function()
-	vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "t", false)
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "t", false)
 end, { desc = "Exit terminal mode" })
 
--- =============================================================================
--- Snacks.nvim Mappings
--- =============================================================================
+-- Terminal
+vim.keymap.set("n", "tt", function() require("snacks").terminal() end, { desc = "Toggle Terminal" })
 
--- Open the file explorer
-vim.keymap.set("n", "<leader>f", function()
-	require("snacks").explorer()
-end, { desc = "Open Snacks Explorer" })
+-- Core Pickers
+vim.keymap.set("n", "<leader><space>", function() require("snacks").picker.smart() end, { desc = "Smart Find" })
+vim.keymap.set("n", "<leader>f", function() require("snacks").explorer() end, { desc = "File Explorer" })
+vim.keymap.set("n", "<leader>/", function() require("snacks").picker.grep() end, { desc = "Grep (Search Project)" })
 
--- Toggle a terminal at the bottom
-vim.keymap.set("n", "<leader>tt", function()
-	require("snacks").terminal.toggle()
-end, { desc = "Toggle terminal" })
+-- Git
+vim.keymap.set("n", "<leader>gs", function() require("snacks").picker.git_status() end, { desc = "Git Status" })
+vim.keymap.set("n", "<leader>gg", function() require("snacks").lazygit() end, { desc = "Lazygit" })
 
--- Open a floating terminal
-vim.keymap.set("n", "<leader>tb", function()
-	require("snacks").terminal.open("fish")
-end, { desc = "Open fish terminal" })
+-- Search & Commands
+vim.keymap.set({"n", "x"}, "<leader>sw", function() require("snacks").picker.grep_word() end, { desc = "Search Word"})
+vim.keymap.set("n", "<leader>su", function() require("snacks").picker.undo() end, { desc = "Undo History" })
+vim.keymap.set("n", "<leader>sc", function() require("snacks").picker.commands() end, { desc = "Search Commands" })
+vim.keymap.set("n", "<leader>sb", function() require("snacks").picker.buffers() end, { desc = "Find Buffers" })
+vim.keymap.set("n", "<leader>sr", function() require("snacks").picker.recent() end, { desc = "Recent Files" })
 
--- Find words in the current buffer
-vim.keymap.set("n", "<leader>sw", function()
-	require("snacks").words()
-end, { desc = "Search [W]ords in buffer" })
+-- Toggles
+require("snacks").toggle.option("spell", { name = "Spelling" }):map("<leader>us")
+require("snacks").toggle.option("wrap", { name = "Wrap" }):map("<leader>uw")
+require("snacks").toggle.diagnostics():map("<leader>ud")
+require("snacks").toggle.option("conceallevel", { off = 0, on = vim.o.conceallevel > 0 and vim.o.conceallevel or 2 }):map("<leader>uc")
+require("snacks").toggle.indent():map("<leader>ug")
 
--- Find text in the current folder (Live Grep)
-vim.keymap.set("n", "<leader>sg", function()
-	require("snacks").picker.grep()
-end, { desc = "Search with [G]rep in folder" })
+-- -----------------------------------------------------------------------------
+-- flash.nvim
+-- -----------------------------------------------------------------------------
+vim.keymap.set({"n", "x", "o"}, "s", function() require("flash").jump() end, { desc = "Flash" })
+vim.keymap.set({"n", "x", "o"}, "S", function() require("flash").treesitter() end, { desc = "Flash Treesitter" })
+vim.keymap.set("o", "r", function() require("flash").remote() end, { desc = "Remote Flash" })
+vim.keymap.set({"o", "x"}, "R", function() require("flash").treesitter_search() end, { desc = "Treesitter Search" })
+vim.keymap.set("c", "<c-s>", function() require("flash").toggle() end, { desc = "Toggle Flash Search" })
 
--- List and switch between open buffers
-vim.keymap.set("n", "<leader>sb", function()
-	require("snacks").picker.buffers()
-end, { desc = "Search open [b]uffers" })
-
--- Show the git status of the current project
-vim.keymap.set("n", "<leader>sg", function()
-	require("snacks").picker.git_status()
-end, { desc = "[G]it [s]tatus" })
-
--- Search Neovim's help tags
-vim.keymap.set("n", "<leader>sh", function()
-	require("snacks").picker.help_tags()
-end, { desc = "[S]earch [H]elp tags" })
+-- -----------------------------------------------------------------------------
+-- vimtex
+-- -----------------------------------------------------------------------------
+vim.keymap.set("n", "<localleader>cc", ":VimtexCompile<CR>", { desc = "Vimtex Compile" })
+vim.keymap.set("n", "<localleader>cv", ":VimtexView<CR>", { desc = "Vimtex View" })
