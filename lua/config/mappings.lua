@@ -99,7 +99,7 @@ vim.keymap.set("n", "<leader>tt", function()
 end, { desc = "Toggle Terminal" })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
 
--- LuaSnipes
+-- LuaSnips
 vim.keymap.set({ "i", "s" }, "<C-k>", function()
 	if require("luasnip").expand_or_jumpable() then
 		require("luasnip").expand_or_jump()
@@ -120,16 +120,23 @@ end, { silent = true, desc = "LuaSnip Change Choice" })
 
 -- Formatter
 vim.keymap.set("n", "<leader>l", function()
-	vim.lsp.buf.format({
-		async = true,
-		filter = function(client)
-			-- Use null-ls if available, otherwise fall back to regular LSP
-			if #vim.tbl_filter(function(c)
-				return c.name == "null-ls"
-			end, vim.lsp.get_active_clients()) > 0 then
+	-- Try to format with null-ls first, fall back to other LSP
+	local ok, _ = pcall(function()
+		vim.lsp.buf.format({
+			async = true,
+			filter = function(client)
 				return client.name == "null-ls"
-			end
-			return client.supports_method("textDocument/formatting")
-		end,
-	})
+			end,
+		})
+	end)
+
+	-- If null-ls formatting failed or isn't available, try other LSP
+	if not ok then
+		vim.lsp.buf.format({
+			async = true,
+			filter = function(client)
+				return client.supports_method("textDocument/formatting")
+			end,
+		})
+	end
 end, { desc = "Format buffer with null-ls or LSP" })

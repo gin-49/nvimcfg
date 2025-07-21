@@ -2,16 +2,15 @@ return {
 	"folke/snacks.nvim",
 	priority = 1000,
 	lazy = false,
-	init = function()
-		-- disable animations globally
-		vim.g.snacks_animate = false
-	end,
 	opts = {
+		bigfile = { enabled = true },
 		indent = { enabled = true },
-        image = { enabled = true},
+		image = { enabled = true },
+        input = { enabled = true },
 		notifier = { enabled = true },
+        notify = { enabled = true },
 		scope = { enabled = true },
-        terminal = { enabled = true},
-        picker = { enabled = true}
+		terminal = { enabled = true },
+		picker = { enabled = true },
 	},
 }
