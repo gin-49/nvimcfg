@@ -10,6 +10,7 @@ return {
 		notifier = { enabled = true },
         notify = { enabled = true },
 		scope = { enabled = true },
+        scroll = { enabled = true},
 		terminal = { enabled = true },
 		picker = { enabled = true },
 	},

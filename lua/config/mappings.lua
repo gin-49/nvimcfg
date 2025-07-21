@@ -5,7 +5,7 @@ vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
 
 -- Picker
-vim.keymap.set("n", "<leader>s<space>", function()
+vim.keymap.set("n", "<leader>s<leader>", function()
 	require("snacks").picker.smart()
 end, { desc = "Smart Find" })
 vim.keymap.set("n", "<leader>s/", function()
@@ -23,6 +23,9 @@ end, { desc = "Projects" })
 vim.keymap.set("n", "<leader>sm", function()
 	require("snacks").picker.man()
 end, { desc = "Man Pages" })
+vim.keymap.set("n", "<leader>sd", function()
+	require("snacks").picker.diagnostics_buffer()
+end, { desc = "Diagnostics" })
 
 -- not saving deleted text
 vim.keymap.set({ "n", "v" }, "d", '"_d')
