@@ -4,6 +4,15 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
 
+-- Picker
+vim.keymap.set("n", "<leader>s<space>", function() require("snacks").picker.smart() end, { desc = "Smart Find" })
+vim.keymap.set("n", "<leader>s/", function() require("snacks").picker.grep() end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>sk", function() require("snacks").picker.keymaps() end, {desc = "Keymaps"}  )
+vim.keymap.set("n", "<leader>sr", function() require("snacks").picker.recent() end, {desc = "Recent"}  )
+vim.keymap.set("n", "<leader>sp", function() require("snacks").picker.projects() end, {desc = "Projects"}  )
+vim.keymap.set("n", "<leader>sm", function() require("snacks").picker.man() end, {desc = "Man Pages"}  )
+
+
 -- not saving deleted text
 vim.keymap.set({ "n", "v" }, "d", '"_d')
 vim.keymap.set({ "n", "v" }, "x", '"_x')
@@ -74,5 +83,7 @@ vim.keymap.set("n", "<localleader>cc", ":VimtexCompile<CR>", { desc = "Vimtex Co
 vim.keymap.set("n", "<localleader>cv", ":VimtexView<CR>", { desc = "Vimtex View" })
 
 -- Terminal
-vim.keymap.set("n", "<leader>tt", function() require("snacks").terminal() end, { desc = "Toggle Terminal" })
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', {noremap = true})
+vim.keymap.set("n", "<leader>tt", function()
+	require("snacks").terminal()
+end, { desc = "Toggle Terminal" })
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })

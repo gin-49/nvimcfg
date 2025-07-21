@@ -12,5 +12,6 @@ return {
 		notifier = { enabled = true },
 		scope = { enabled = true },
         terminal = { enabled = true},
+        picker = { enabled = true}
 	},
 }
