@@ -5,13 +5,24 @@ vim.keymap.set("n", "<leader>to", ":tabnew<CR>", opts) -- open new tab
 vim.keymap.set("n", "<leader>tx", ":tabclose<CR>", opts) -- close current tab
 
 -- Picker
-vim.keymap.set("n", "<leader>s<space>", function() require("snacks").picker.smart() end, { desc = "Smart Find" })
-vim.keymap.set("n", "<leader>s/", function() require("snacks").picker.grep() end, { desc = "Grep" })
-vim.keymap.set("n", "<leader>sk", function() require("snacks").picker.keymaps() end, {desc = "Keymaps"}  )
-vim.keymap.set("n", "<leader>sr", function() require("snacks").picker.recent() end, {desc = "Recent"}  )
-vim.keymap.set("n", "<leader>sp", function() require("snacks").picker.projects() end, {desc = "Projects"}  )
-vim.keymap.set("n", "<leader>sm", function() require("snacks").picker.man() end, {desc = "Man Pages"}  )
-
+vim.keymap.set("n", "<leader>s<space>", function()
+	require("snacks").picker.smart()
+end, { desc = "Smart Find" })
+vim.keymap.set("n", "<leader>s/", function()
+	require("snacks").picker.grep()
+end, { desc = "Grep" })
+vim.keymap.set("n", "<leader>sk", function()
+	require("snacks").picker.keymaps()
+end, { desc = "Keymaps" })
+vim.keymap.set("n", "<leader>sr", function()
+	require("snacks").picker.recent()
+end, { desc = "Recent" })
+vim.keymap.set("n", "<leader>sp", function()
+	require("snacks").picker.projects()
+end, { desc = "Projects" })
+vim.keymap.set("n", "<leader>sm", function()
+	require("snacks").picker.man()
+end, { desc = "Man Pages" })
 
 -- not saving deleted text
 vim.keymap.set({ "n", "v" }, "d", '"_d')
@@ -87,3 +98,38 @@ vim.keymap.set("n", "<leader>tt", function()
 	require("snacks").terminal()
 end, { desc = "Toggle Terminal" })
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>", { noremap = true })
+
+-- LuaSnipes
+vim.keymap.set({ "i", "s" }, "<C-k>", function()
+	if require("luasnip").expand_or_jumpable() then
+		require("luasnip").expand_or_jump()
+	end
+end, { silent = true, desc = "LuaSnip Expand or Jump" })
+
+vim.keymap.set({ "i", "s" }, "<C-j>", function()
+	if require("luasnip").jumpable(-1) then
+		require("luasnip").jump(-1)
+	end
+end, { silent = true, desc = "LuaSnip Jump Back" })
+
+vim.keymap.set("i", "<C-l>", function()
+	if require("luasnip").choice_active() then
+		require("luasnip").change_choice(1)
+	end
+end, { silent = true, desc = "LuaSnip Change Choice" })
+
+-- Formatter
+vim.keymap.set("n", "<leader>l", function()
+	vim.lsp.buf.format({
+		async = true,
+		filter = function(client)
+			-- Use null-ls if available, otherwise fall back to regular LSP
+			if #vim.tbl_filter(function(c)
+				return c.name == "null-ls"
+			end, vim.lsp.get_active_clients()) > 0 then
+				return client.name == "null-ls"
+			end
+			return client.supports_method("textDocument/formatting")
+		end,
+	})
+end, { desc = "Format buffer with null-ls or LSP" })
