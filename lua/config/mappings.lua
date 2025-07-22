@@ -5,7 +5,7 @@ local opts = { noremap = true, silent = true }
 
 -- Navigation and Editor keymaps
 vim.keymap.set("i", "jj", "<Esc>", opts)
-vim.keymap.set("n", "<leader>j", ":wq<CR>", opts)
+vim.keymap.set("n", "<leader>j", "ZZ", opts)
 vim.keymap.set("n", "<leader>w", ":w!<CR>", opts)
 vim.keymap.set("n", "<C-j>", "o<Esc>", opts)
 vim.keymap.set("n", "<C-d>", ":q!<CR>", opts)
